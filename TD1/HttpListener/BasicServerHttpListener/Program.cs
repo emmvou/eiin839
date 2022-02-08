@@ -57,6 +57,12 @@ namespace BasicServerHTTPlistener
                 HttpListenerContext context = listener.GetContext();
                 HttpListenerRequest request = context.Request;
 
+
+                foreach (string h in request.Headers)
+                {
+                    Console.Write(h + ": " + request.Headers[h] + "\n");
+                }
+
                 string documentContents;
                 using (Stream receiveStream = request.InputStream)
                 {
