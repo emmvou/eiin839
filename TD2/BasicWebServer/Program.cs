@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace BasicServerHTTPlistener
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
 
             //if HttpListener is not supported by the Framework
@@ -108,15 +110,47 @@ namespace BasicServerHTTPlistener
                 // Obtain a response object.
                 HttpListenerResponse response = context.Response;
 
+                if (request.Url.Segments.Length <= 2)
+                {
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return;
+                }
+                
                 // Construct a response.
-                string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
-                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-                // Get a response stream and write the response to it.
-                response.ContentLength64 = buffer.Length;
-                System.IO.Stream output = response.OutputStream;
-                output.Write(buffer, 0, buffer.Length);
-                // You must close the output stream.
-                output.Close();
+                string endpoint = request.Url.Segments[1][..^1];
+                //string httpMeth = request.HttpMethod;
+                string httpMeth = request.Url.Segments[2];
+
+                var endClass = typeof(Program).Assembly.ExportedTypes.FirstOrDefault(t => t.Name == endpoint);
+                
+                if (endClass is null)
+                {
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    return;
+                }
+                
+                var end = Activator.CreateInstance(endClass);
+
+                var meth = endClass.GetMethod(httpMeth);
+               
+                //var argss = HttpUtility.ParseQueryString(request.Url.Query).AllKeys.ToDictionary(k => k, k => HttpUtility.ParseQueryString(request.Url.Query).Get(k));
+                
+                string[] argss = HttpUtility.ParseQueryString(request.Url.Query).AllKeys.Select(k => HttpUtility.ParseQueryString(request.Url.Query).Get(k)).ToArray();
+                
+                //convert all argss to meth parameter types
+                var arguments = new object[meth.GetParameters().Length];
+                for (int i = 0; i < arguments.Length; i++)
+                {
+                    arguments[i] = Convert.ChangeType(argss[i], meth.GetParameters()[i].ParameterType);
+                }
+                
+
+                var result = meth.Invoke(end, arguments);
+                
+                await using var output = response.OutputStream;
+                await using var sw = new StreamWriter(output);
+                await sw.WriteAsync(result?.ToString() ?? "");
+             
             }
             // Httplistener neither stop ... But Ctrl-C do that ...
             // listener.Stop();
