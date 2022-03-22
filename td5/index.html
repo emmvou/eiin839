@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1 id="workingTest">STATIONS</h1>
+
+    <button onclick="retrieveAllContracts();">Retrieve Contracts</button>
+    <br/>
+    <label for="contract">Contract</label>
+    <select id="contract" name="contract">
+        <option value="">--Please choose an option--</option>
+    </select>
+    <button onclick="retrieveContractStations();">retrieve Contract Stations</button>
+    <br/>
+    <label for="station">Station</label>
+    <select id="station" name="station">
+        <option value="">--Please choose an option--</option>
+    </select>
+    <br/>
+    <label for="latitude">Latitude</label>
+    <input type="text" name="latitude" id="latitude" required/>
+    <label for="longitude">Longitude</label>
+    <input type="text" name="longitude" id="longitude" required/>
+    <button onclick="findNearestStation();">Find Nearest Station</button>
+    <span id="nearestStation"></span>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
