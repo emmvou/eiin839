@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\MathService\Reference.cs">
+    <Compile Include="Connected Services\MathsServices\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -55,17 +55,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\MathService\ConsoleMaths.MathService.CompositeType.datasource">
+    <None Include="Connected Services\MathsServices\ConsoleMaths.MathsServices.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\MathService\MathsLibrary.xsd">
+    <None Include="Connected Services\MathsServices\service.wsdl" />
+    <None Include="Connected Services\MathsServices\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MathService\service.wsdl" />
-    <None Include="Connected Services\MathService\service.xsd">
+    <None Include="Connected Services\MathsServices\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MathService\service1.xsd">
+    <None Include="Connected Services\MathsServices\SOAPMathsLibrary.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -73,16 +73,16 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\MathService\" />
+    <WCFMetadataStorage Include="Connected Services\MathsServices\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MathService\configuration91.svcinfo" />
+    <None Include="Connected Services\MathsServices\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MathService\configuration.svcinfo" />
+    <None Include="Connected Services\MathsServices\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MathService\Reference.svcmap">
+    <None Include="Connected Services\MathsServices\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

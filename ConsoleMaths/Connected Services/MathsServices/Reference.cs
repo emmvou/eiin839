@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsoleMaths.MathService {
+namespace ConsoleMaths.MathsServices {
     using System.Runtime.Serialization;
     using System;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/MathsLibrary")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/SOAPMathsLibrary")]
     [System.SerializableAttribute()]
     public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -75,7 +75,7 @@ namespace ConsoleMaths.MathService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MathService.IMathsOperations")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MathsServices.IMathsOperations")]
     public interface IMathsOperations {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMathsOperations/Add", ReplyAction="http://tempuri.org/IMathsOperations/AddResponse")]
@@ -97,19 +97,19 @@ namespace ConsoleMaths.MathService {
         System.Threading.Tasks.Task<int> SubstractAsync(int value1, int value2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMathsOperations/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IMathsOperations/GetDataUsingDataContractResponse")]
-        ConsoleMaths.MathService.CompositeType GetDataUsingDataContract(ConsoleMaths.MathService.CompositeType composite);
+        ConsoleMaths.MathsServices.CompositeType GetDataUsingDataContract(ConsoleMaths.MathsServices.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMathsOperations/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IMathsOperations/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<ConsoleMaths.MathService.CompositeType> GetDataUsingDataContractAsync(ConsoleMaths.MathService.CompositeType composite);
+        System.Threading.Tasks.Task<ConsoleMaths.MathsServices.CompositeType> GetDataUsingDataContractAsync(ConsoleMaths.MathsServices.CompositeType composite);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IMathsOperationsChannel : ConsoleMaths.MathService.IMathsOperations, System.ServiceModel.IClientChannel {
+    public interface IMathsOperationsChannel : ConsoleMaths.MathsServices.IMathsOperations, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MathsOperationsClient : System.ServiceModel.ClientBase<ConsoleMaths.MathService.IMathsOperations>, ConsoleMaths.MathService.IMathsOperations {
+    public partial class MathsOperationsClient : System.ServiceModel.ClientBase<ConsoleMaths.MathsServices.IMathsOperations>, ConsoleMaths.MathsServices.IMathsOperations {
         
         public MathsOperationsClient() {
         }
@@ -154,11 +154,11 @@ namespace ConsoleMaths.MathService {
             return base.Channel.SubstractAsync(value1, value2);
         }
         
-        public ConsoleMaths.MathService.CompositeType GetDataUsingDataContract(ConsoleMaths.MathService.CompositeType composite) {
+        public ConsoleMaths.MathsServices.CompositeType GetDataUsingDataContract(ConsoleMaths.MathsServices.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<ConsoleMaths.MathService.CompositeType> GetDataUsingDataContractAsync(ConsoleMaths.MathService.CompositeType composite) {
+        public System.Threading.Tasks.Task<ConsoleMaths.MathsServices.CompositeType> GetDataUsingDataContractAsync(ConsoleMaths.MathsServices.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
     }

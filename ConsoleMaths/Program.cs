@@ -11,8 +11,10 @@ namespace ConsoleMaths
 	{
 		public static void Main(string[] args)
 		{
-			MathService.MathsOperationsClient client = new MathService.MathsOperationsClient();
+			MathsServices.MathsOperationsClient client = new MathsServices.MathsOperationsClient();
 			Console.WriteLine("1 + 2 = "+client.Add(1,2));
+			Console.WriteLine("1 - 2 = " + client.Substract(1, 2));
+			Console.WriteLine("1 * 2 = " + client.Multiply(1, 2));
 			Console.ReadLine();
 		}
 	}

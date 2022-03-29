@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("MathsLibrary")]
+[assembly: AssemblyTitle("SOAPMathsLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MathsLibrary")]
+[assembly: AssemblyProduct("SOAPMathsLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("2cfaa56f-c877-4cd2-9c53-27af96cf5e8a")]
+[assembly: Guid("b15af0fa-aaa8-4fb4-b5d3-db6c3c91f6d8")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //
