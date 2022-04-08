@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="372508b3-2f5a-4ee8-8548-905256fc0e5b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="7ed4097f-65b5-4939-a6a2-b5959dcef787" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="ee581cdf-a363-4e73-afce-4b46cfc29dbd" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="c962e3eb-e75c-472c-942c-c1af1f38ca63" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="6b7170ea-3bcd-4d0c-aa82-67d7cc1c40bb" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+    <MetadataFile FileName="System.Device.Location.xsd" MetadataType="Schema" ID="81a5ff12-a019-412f-981f-e9089b910c80" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+    <MetadataFile FileName="RoutingWithBikes.xsd" MetadataType="Schema" ID="ddfe8ff6-d1f4-4af5-9ea4-c13410569ce2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
