@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -14,6 +15,33 @@ namespace RoutingWithBikes
 	internal class Routing
 		//TODO calculer plus intelligemment que juste à vol d'oiseau
 	{
+		//TODO call once with proxy route
+		
+
+		public static async Task<Dictionary<string, Station>> InitStationList()
+        {
+			var client = new HttpClient();
+			var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Stations");
+			if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+			{
+				Console.WriteLine("error");
+				throw new Exception("Couldn't get list of stations");
+			}
+			var res = await response.Content.ReadAsStringAsync();
+			List<Station> r;
+            try
+            {
+
+			r = JsonSerializer.Deserialize<List<Station>>(res);
+            }
+			catch (Exception ex)
+            {
+				Console.WriteLine(ex.Message);
+				throw new Exception("couldn't read list of stations");
+            }
+			return r.ToDictionary(keySelector: s => s.name);
+		}	
+
 		public static async Task<string> fct()
 		{
 			var contract = "lyon";
@@ -75,46 +103,42 @@ namespace RoutingWithBikes
 		public bool banking { get; set; }
 		public bool bonus { get; set; }
 		public string status { get; set; }
-		//public string lastUpdate { get; set; }
+		public DateTime lastUpdate { get; set; }
 		public bool connected { get; set; }
-		//public bool overflow { get; set; }
-		//public object shape { get; set; }
-		//public Stands totalStands { get; set; }
-		//public Stands mainStands { get; set; }
-		//public object overflows { get; set; }
-		public int bike_stands { get; set; }
-		public int available_bike_stands { get; set; }
-		public int available_bikes { get; set; }
-		public long lastUpdate { get; set; }
+		public bool overflow { get; set; }
+		public object shape { get; set; }
+		public Stands totalStands { get; set; }
+		public Stands mainStands { get; set; }
+		public object overflowStands { get; set; }
 
 		[JsonConstructor]
 		public Station(int number, string contractName, string name, string address, Dictionary<string, double> position,
-			bool banking, bool bonus, string status, long lastUpdate, bool connected, int bike_stands, int available_bike_stands, int available_bikes)
+			bool banking, bool bonus, string status, DateTime lastUpdate, bool connected,
+			bool overflow, object shape, Stands totalStands, Stands mainStands, object overflowStands)
 		{
 			this.number = number;
 			this.contractName = contractName;
 			this.name = name;
 			this.address = address;
 			this.position = position;
-			this.position2 = new GeoCoordinate(position["lat"], position["lng"]);
+			this.position2 = new GeoCoordinate(position["latitude"], position["longitude"]);
 			this.banking = banking;
 			this.bonus = bonus;
 			this.status = status;
 			this.lastUpdate = lastUpdate;
 			this.connected = connected;
-			//this.overflow = overflow;
-			//this.shape = shape;
-			//this.totalStands = totalStands;
-			//this.mainStands = mainStands;
-			//this.overflows = overflows;
-			this.bike_stands = bike_stands;
-			this.available_bikes = available_bikes;
-			this.available_bike_stands = available_bike_stands;
+			this.overflow = overflow;
+			this.shape = shape;
+			this.totalStands = totalStands;
+			this.mainStands = mainStands;
+			this.overflowStands = overflowStands;
 		}
 
 		public override string ToString()
 		{
-			return $"{name} ({address})\n\t" + position2; //String.Join(" ", position);
+			//return $"{name} ({address})\n\t" + position2; //String.Join(" ", position);
+			return $"{name}/{number} ({address})\n\t" + position2 + $"\n\t{contractName}, {banking}, {bonus}, " +
+				$"{status}, {lastUpdate}, {connected}, {overflow}\n\t{shape}, {totalStands}, {mainStands}, {overflowStands}"; 
 		}
 	}
 
@@ -122,7 +146,12 @@ namespace RoutingWithBikes
 	{
 		public Availabilities availabilities { get; set; }
 		public int capacity { get; set; }
-	}
+
+        public override string ToString()
+        {
+            return $"stands: {availabilities} {capacity}";
+        }
+    }
 
 	public class Availabilities
 	{
@@ -132,11 +161,32 @@ namespace RoutingWithBikes
 		public int electricalBikes { get; set; }
 		public int electricalInternalBatteryBikes { get; set; }
 		public int electricalRemovableBatteryBikes { get; set; }
-	}
+
+        public override string ToString()
+        {
+            return $"{bikes}, {stands}, {mechanicalBikes}, {electricalBikes}, {electricalInternalBatteryBikes}, {electricalRemovableBatteryBikes}";
+        }
+    }
 
 	public class Position
 	{
 		public double latitude { get; set; }
 		public double longitude { get; set; }
-	}
+
+        public override string ToString()
+        {
+			return $"lat:{latitude} | lng:{longitude}";
+        }
+    }
+
+	[DataContract]
+	public class Contract
+    {
+		[DataMember] public string name { get; set; }
+		[DataMember] public string commercial_name { get; set; }
+		[DataMember] public List<string> cities { get; set; }
+		[DataMember] public string country_code { get; set; }
+
+	
+    }
 }

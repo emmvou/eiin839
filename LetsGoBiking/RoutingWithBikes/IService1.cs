@@ -18,6 +18,9 @@ namespace RoutingWithBikes
         string GetData(int value);
 
         [OperationContract]
+        Task<string> GetAllStations();
+
+        [OperationContract]
         Task<string> Test();
 
         [OperationContract]

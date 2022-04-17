@@ -225,6 +225,12 @@ namespace HeavyClient.RoutingService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStations", ReplyAction="http://tempuri.org/IService1/GetAllStationsResponse")]
+        string GetAllStations();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStations", ReplyAction="http://tempuri.org/IService1/GetAllStationsResponse")]
+        System.Threading.Tasks.Task<string> GetAllStationsAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Test", ReplyAction="http://tempuri.org/IService1/TestResponse")]
         string Test();
         
@@ -295,6 +301,14 @@ namespace HeavyClient.RoutingService {
         
         public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
             return base.Channel.GetDataAsync(value);
+        }
+        
+        public string GetAllStations() {
+            return base.Channel.GetAllStations();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAllStationsAsync() {
+            return base.Channel.GetAllStationsAsync();
         }
         
         public string Test() {
