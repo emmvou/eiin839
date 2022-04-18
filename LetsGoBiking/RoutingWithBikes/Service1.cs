@@ -12,17 +12,11 @@ namespace RoutingWithBikes
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
     public class Service1 : IService1
     {
-        Dictionary<string, Station> Stations = new Dictionary<string, Station>();
+        
         //SOAP
         public async Task<string> GetAllStations()
         {
-
-            if (Stations.Count == 0)
-            {
-                Stations = await Routing.InitStationList();
-            }
-            
-            return String.Join(",", Stations.Select((k, v) => k + "=" + v).ToArray());
+            return String.Join(",", await Routing.InitStationList());
         }
         public string GetData(int value)
         {
@@ -31,7 +25,7 @@ namespace RoutingWithBikes
 
         public async Task<string> Test()
         {
-            return await Routing.fct();
+            return await Routing.Fct();
         }
 
         public async Task<Tuple<GeoCoordinate, GeoCoordinate>> GetTwoClosestStations(Tuple<Tuple<double, double>, Tuple<double, double>> locations)
@@ -50,6 +44,11 @@ namespace RoutingWithBikes
                 composite.StringValue += "Suffix";
             }
             return composite;
+        }
+
+        public async Task<ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract)
+        {
+            return await Routing.GetComputedRoute(new Tuple<double, double>(startLat, startLong), new Tuple<double, double>(endLat, endLong), contract);
         }
 
         //REST

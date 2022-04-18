@@ -1,8 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
@@ -16,33 +19,151 @@ namespace RoutingWithBikes
 		//TODO calculer plus intelligemment que juste à vol d'oiseau
 	{
 		//TODO call once with proxy route
-		
 
-		public static async Task<Dictionary<string, Station>> InitStationList()
+        static List<Station> Stations = new List<Station>();
+
+
+		public static async Task<List<Station>> InitStationList()
         {
-			var client = new HttpClient();
-			var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Stations");
-			if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-			{
-				Console.WriteLine("error");
-				throw new Exception("Couldn't get list of stations");
-			}
-			var res = await response.Content.ReadAsStringAsync();
-			List<Station> r;
+            await internalInit();
+            return Stations;
+        }
+
+        private static async Task internalInit()
+        {
+            Stations = await CallStations();
+            //var client = new HttpClient();
+            //var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Stations");
+            //if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            //{
+            //    throw new Exception("Couldn't get list of stations");
+            //}
+            //var res = await response.Content.ReadAsStringAsync();
+            //List<Station> r;
+            //try
+            //{
+            //    r = JsonSerializer.Deserialize<List<Station>>(JsonSerializer.Deserialize<string>(res));
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("couldn't read list of stations");
+            //}
+            //Stations = r;
+        }
+
+        private static async Task<List<Station>> CallStations()
+        {
+            return await CallProxy<List<Station>>("Stations", "");
+        }
+
+		public static async Task<ComputedRoute> GetComputedRoute(Tuple<double, double> start, Tuple<double, double> end, string contract)
+        {
+            if (Stations.Count == 0)
+            {
+                await internalInit();
+            }
+			//on prend toutes les stations du contrat
+            var stations = Stations.FindAll(s => s.contractName == contract);
+            if (stations.Count == 0)
+            {
+                throw new Exception("cannot find any station for given contract");
+            }
+
+			//on trie les stations par proximité pour start, puis pour end
+            var startPos = new GeoCoordinate(start.Item1, start.Item2);
+            var endPos = new GeoCoordinate(end.Item1, end.Item2);
+
+			//on prend dans l'ordre jusqu'à la première qui a du stock de vélo
+            Station checkPoint1 = await getClosestStationWithBikes(stations, startPos);
+			Station checkPoint2 = await getClosestStationWithBikes(stations, endPos);
+
+            //on appelle l'API à partir des arguments
+            var stb = await CallOpenRouteService(startPos, checkPoint1.position2, "foot-walking");
+            var btb = await CallOpenRouteService(checkPoint1.position2, checkPoint2.position2, "cycling-regular");
+            var bte = await CallOpenRouteService(checkPoint2.position2, endPos, "foot-walking");
+
+            return new ComputedRoute() { StartToBike = stb, BikeToBike = btb, BikeToEnd = bte };
+        }
+
+        private static async Task<string> CallOpenRouteService(GeoCoordinate start, GeoCoordinate end, string profile)
+        {
+            return await RESTRoute("https://api.openrouteservice.org/v2/directions/", profile + "?"+
+                "api_key=5b3ce3597851110001cf624895c40c813bcc4f6a864a3d2cd032c5b0"+
+                "&start="+ start.Longitude.ToString(CultureInfo.InvariantCulture) + ","+start.Latitude.ToString(CultureInfo.InvariantCulture) +
+                "&end=" + end.Longitude.ToString(CultureInfo.InvariantCulture) + ","+ end.Latitude.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private static async Task<Station> getClosestStationWithBikes(List<Station> stations, GeoCoordinate position)
+        {
+            foreach (var s in stations.OrderBy( pos => position.GetDistanceTo(pos.position2)))
+            {
+                var st = await GetStation(s.number, s.contractName);
+                if (st.totalStands.availabilities.bikes > 0)
+                {
+                    return st;
+                }
+            }
+            throw new Exception("no bikes available anywhere");
+		}
+
+		private static async Task<Station> GetStation(int id, string contract)
+        {
+            return await CallProxy<Station>("Station","?x=" + id.ToString(CultureInfo.InvariantCulture) + "&contract=" + contract);
+			//on appelle le proxy
+			//var client = new HttpClient();
+            //var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Station?x="+ id.ToString()+"&contract="+contract);
+            //if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            //{
+            //    Console.WriteLine("error");
+            //    throw new Exception("Couldn't get list of stations");
+            //}
+            //var res = await response.Content.ReadAsStringAsync();
+            //Station s;
+            //try
+            //{
+            //    s = JsonSerializer.Deserialize<Station>(JsonSerializer.Deserialize<string>(res));
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("couldn't read list of stations");
+            //}
+			//
+            //return s;
+		}
+
+        private static async Task<T> CallProxy<T>(string uri, string parameters)
+        {
+            return DeserializeResponse<T>(await RESTRoute("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/" + uri,
+                parameters));
+        }
+
+        private static async Task<string> RESTRoute(string baseUri, string parameters)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(baseUri + parameters);
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                throw new Exception("wrong external route\nuri: "+baseUri+parameters);
+            }
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        private static T DeserializeResponse<T>(string response)
+        {
+            T s;
             try
             {
-
-			r = JsonSerializer.Deserialize<List<Station>>(res);
+                s = JsonSerializer.Deserialize<T>(JsonSerializer.Deserialize<string>(response));
             }
-			catch (Exception ex)
+            catch (Exception ex)
             {
-				Console.WriteLine(ex.Message);
-				throw new Exception("couldn't read list of stations");
+                throw new Exception("couldn't deserialize");
             }
-			return r.ToDictionary(keySelector: s => s.name);
-		}	
 
-		public static async Task<string> fct()
+            return s;
+        }
+
+		public static async Task<string> Fct()
 		{
 			var contract = "lyon";
 			GeoCoordinate gps = new GeoCoordinate(4, 5);
@@ -92,7 +213,7 @@ namespace RoutingWithBikes
 		}
     }
 
-	public class Station
+	public class Station : ICloneable
 	{
 		public int number { get; set; }
 		public string contractName { get; set; }
@@ -136,11 +257,17 @@ namespace RoutingWithBikes
 
 		public override string ToString()
 		{
-			//return $"{name} ({address})\n\t" + position2; //String.Join(" ", position);
-			return $"{name}/{number} ({address})\n\t" + position2 + $"\n\t{contractName}, {banking}, {bonus}, " +
-				$"{status}, {lastUpdate}, {connected}, {overflow}\n\t{shape}, {totalStands}, {mainStands}, {overflowStands}"; 
+			return $"{name} ({address})\n\t" + position2; //String.Join(" ", position);
+			//return $"{name}/{number} ({address})\n\t" + position2 + $"\n\t{contractName}, {banking}, {bonus}, " +
+			//	$"{status}, {lastUpdate}, {connected}, {overflow}\n\t{shape}, {totalStands}, {mainStands}, {overflowStands}"; 
 		}
-	}
+
+        public object Clone()
+        {
+            return new Station(number, contractName, name, address, position, banking, bonus, status, lastUpdate,
+                connected, overflow, shape, totalStands, mainStands, overflowStands);
+        }
+    }
 
 	public class Stands
 	{

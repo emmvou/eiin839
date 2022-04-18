@@ -29,6 +29,10 @@ namespace RoutingWithBikes
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Route?startLat={startLat}&startLong={startLong}&endLat={endLat}&endLong={endLong}&contract={contract}", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task <ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract);
+
 
         //REST
         [OperationContract]
@@ -41,6 +45,8 @@ namespace RoutingWithBikes
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Sub?x={value1}&y={value2}", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json)]
         int Substract(int value1, int value2);
+
+        
     }
 
     // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.
@@ -63,6 +69,33 @@ namespace RoutingWithBikes
         {
             get { return stringValue; }
             set { stringValue = value; }
+        }
+    }
+
+    [DataContract]
+    public class ComputedRoute
+    {
+        private string startToBike;
+        private string bikeToBike;
+        private string bikeToEnd;
+
+        [DataMember]
+        public string StartToBike
+        {
+            get { return startToBike; }
+            set { startToBike = value; }
+        }
+        [DataMember]
+        public string BikeToBike
+        {
+            get { return bikeToBike; }
+            set { bikeToBike = value; }
+        }
+        [DataMember]
+        public string BikeToEnd
+        {
+            get { return bikeToEnd; }
+            set { bikeToEnd = value; }
         }
     }
 }

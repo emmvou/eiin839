@@ -7,4 +7,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompositeType" nillable="true" type="tns:CompositeType" />
+  <xs:complexType name="ComputedRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BikeToBike" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BikeToEnd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartToBike" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComputedRoute" nillable="true" type="tns:ComputedRoute" />
 </xs:schema>

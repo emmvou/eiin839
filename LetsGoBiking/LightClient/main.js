@@ -24,3 +24,40 @@ function testConnect(){
     };
     request.send();
 }
+
+let map = new ol.Map({
+    target: 'map',
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+        })
+    ],
+    view: new ol.View({
+        center: ol.proj.fromLonLat([37.41, 8.82]),
+        zoom: 4
+    })
+});
+
+function drawTest() {
+    // route returns an array of 3 routes
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.774200&startLong=4.867518&endLat=45.75190&endLong=4.821669&contract=lyon",
+        function(data){
+            console.log(data);
+            let route = data["RouteResult"];
+            let routeCoords = [];
+            for(let i = 0; i < route.length; i++){
+                routeCoords.push(ol.proj.fromLonLat([route[i]["Longitude"], route[i]["Latitude"]]));
+            }
+            let routeLine = new ol.Feature({
+                geometry: new ol.geom.LineString(routeCoords)
+            });
+            let routeSource = new ol.source.Vector({
+                features: [routeLine]
+            });
+            let routeLayer = new ol.layer.Vector({
+                source: routeSource
+            });
+            map.addLayer(routeLayer);
+        });
+
+}

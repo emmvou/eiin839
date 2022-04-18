@@ -215,6 +215,83 @@ namespace HeavyClient.RoutingService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ComputedRoute", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
+    [System.SerializableAttribute()]
+    public partial class ComputedRoute : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BikeToBikeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BikeToEndField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StartToBikeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BikeToBike {
+            get {
+                return this.BikeToBikeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BikeToBikeField, value) != true)) {
+                    this.BikeToBikeField = value;
+                    this.RaisePropertyChanged("BikeToBike");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BikeToEnd {
+            get {
+                return this.BikeToEndField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BikeToEndField, value) != true)) {
+                    this.BikeToEndField = value;
+                    this.RaisePropertyChanged("BikeToEnd");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StartToBike {
+            get {
+                return this.StartToBikeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StartToBikeField, value) != true)) {
+                    this.StartToBikeField = value;
+                    this.RaisePropertyChanged("StartToBike");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RoutingService.IService1")]
     public interface IService1 {
@@ -248,6 +325,12 @@ namespace HeavyClient.RoutingService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
         System.Threading.Tasks.Task<HeavyClient.RoutingService.CompositeType> GetDataUsingDataContractAsync(HeavyClient.RoutingService.CompositeType composite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRoute", ReplyAction="http://tempuri.org/IService1/GetRouteResponse")]
+        HeavyClient.RoutingService.ComputedRoute GetRoute(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRoute", ReplyAction="http://tempuri.org/IService1/GetRouteResponse")]
+        System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Add", ReplyAction="http://tempuri.org/IService1/AddResponse")]
         int Add(int value1, int value2);
@@ -333,6 +416,14 @@ namespace HeavyClient.RoutingService {
         
         public System.Threading.Tasks.Task<HeavyClient.RoutingService.CompositeType> GetDataUsingDataContractAsync(HeavyClient.RoutingService.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
+        }
+        
+        public HeavyClient.RoutingService.ComputedRoute GetRoute(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract) {
+            return base.Channel.GetRoute(start, end, contract);
+        }
+        
+        public System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract) {
+            return base.Channel.GetRouteAsync(start, end, contract);
         }
         
         public int Add(int value1, int value2) {

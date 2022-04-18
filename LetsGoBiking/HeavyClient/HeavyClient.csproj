@@ -58,6 +58,9 @@
     <None Include="Connected Services\RoutingService\HeavyClient.RoutingService.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\RoutingService\HeavyClient.RoutingService.ComputedRoute.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\RoutingService\HeavyClient.RoutingService.GeoCoordinate.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

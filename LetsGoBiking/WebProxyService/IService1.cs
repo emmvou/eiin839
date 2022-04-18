@@ -18,8 +18,8 @@ namespace WebProxyService
         Task<string> Stations();
         
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Station?x={number}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
-        string GetInfo(int number);
+        [WebInvoke(Method = "GET", UriTemplate = "Station?x={id}&contract={contract}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        Task<string> GetInfo(string id, string contract);
     }
 
     // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.

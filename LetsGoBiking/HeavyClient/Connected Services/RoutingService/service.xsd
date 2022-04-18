@@ -68,6 +68,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="start" nillable="true" type="q5:TupleOfdoubledouble" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="end" nillable="true" type="q6:TupleOfdoubledouble" />
+        <xs:element minOccurs="0" name="contract" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRouteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/RoutingWithBikes" minOccurs="0" name="GetRouteResult" nillable="true" type="q7:ComputedRoute" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Add">
     <xs:complexType>
       <xs:sequence>
