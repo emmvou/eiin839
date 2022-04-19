@@ -42,13 +42,19 @@ $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/res
     function(data){
         console.log(data);
         for(d in data){
-            $("#towns").append("<option value='"+data[d].id+"'>"+data[d].name+"</option>");
+            $("#towns").append("<option value='"+data[d].commercial_name+"'>"+data[d].name+"</option>");
         }
     });
 
 
 function drawTest() {
-    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.784300&startLong=4.867518&endLat=45.751&endLong=4.681669&contract=lyon",
+    let towns = $("#towns")[0];
+    if(towns.value === ""){
+        alert("Please select a town");
+        return;
+    }
+    let opt = towns.options[towns.selectedIndex]; //huge vulnerability here
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.784300&startLong=4.867518&endLat=45.751&endLong=4.681669&contract="+opt.text,
         function(data){
             console.log(data);
             drawRoute(data["StartToBike"], false);
@@ -65,7 +71,6 @@ function drawRoute(route, isBike){
     });
     let routeCoords = [];
     routeCoords.push(ol.proj.fromLonLat([route["Longitude"], route["Latitude"]]));
-
 
     let routeSource = new ol.source.Vector({
         features: points,
