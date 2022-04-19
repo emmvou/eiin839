@@ -30,7 +30,6 @@ namespace WebProxyService
 
         public async Task<string> Stations()
         {
-
             var key = "apiKey=f51f7e272f7aa2c0b30e9e3f6d6d3ea8fa202c8e";
             var baseUri = "https://api.jcdecaux.com/vls/v3/";
             var client = new HttpClient();
@@ -46,6 +45,20 @@ namespace WebProxyService
         public async Task<string> GetInfo(string id, string contract)
         {
             return await cache.Get(id, contract);
+        }
+
+        public async Task<string> Contracts()
+        {
+            var key = "apiKey=f51f7e272f7aa2c0b30e9e3f6d6d3ea8fa202c8e";
+            var baseUri = "https://api.jcdecaux.com/vls/v3/";
+            var client = new HttpClient();
+            var response = await client.GetAsync(baseUri + "/contracts?" + "&" + key);
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                return "Bad request";
+            }
+            var res = await response.Content.ReadAsStringAsync();
+            return res;
         }
     }
 

@@ -14,10 +14,16 @@ namespace RoutingWithBikes
     {
         
         //SOAP
-        public async Task<string> GetAllStations()
+        public async Task<List<Station>> GetAllStations()
         {
-            return String.Join(",", await Routing.InitStationList());
+            return await Routing.InitStationList();
         }
+
+        public async Task<List<Contract>> GetAllContracts()
+        {
+            return await Routing.InitContractList();
+        }
+
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);

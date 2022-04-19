@@ -16,7 +16,11 @@ namespace WebProxyService
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Stations", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         Task<string> Stations();
-        
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Contracts", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        Task<string> Contracts();
+
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Station?x={id}&contract={contract}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         Task<string> GetInfo(string id, string contract);

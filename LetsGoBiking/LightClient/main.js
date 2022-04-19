@@ -33,31 +33,58 @@ let map = new ol.Map({
         })
     ],
     view: new ol.View({
-        center: ol.proj.fromLonLat([37.41, 8.82]),
-        zoom: 4
+        center: ol.proj.fromLonLat([3.0, 47.0]),
+        zoom: 6
     })
 });
 
+$.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Contracts",
+    function(data){
+        console.log(data);
+        for(d in data){
+            $("#towns").append("<option value='"+data[d].id+"'>"+data[d].name+"</option>");
+        }
+    });
+
+
 function drawTest() {
-    // route returns an array of 3 routes
-    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.774200&startLong=4.867518&endLat=45.75190&endLong=4.821669&contract=lyon",
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.784300&startLong=4.867518&endLat=45.751&endLong=4.681669&contract=lyon",
         function(data){
             console.log(data);
-            let route = data["RouteResult"];
-            let routeCoords = [];
-            for(let i = 0; i < route.length; i++){
-                routeCoords.push(ol.proj.fromLonLat([route[i]["Longitude"], route[i]["Latitude"]]));
-            }
-            let routeLine = new ol.Feature({
-                geometry: new ol.geom.LineString(routeCoords)
-            });
-            let routeSource = new ol.source.Vector({
-                features: [routeLine]
-            });
-            let routeLayer = new ol.layer.Vector({
-                source: routeSource
-            });
-            map.addLayer(routeLayer);
+            drawRoute(data["StartToBike"], false);
+            drawRoute(data["BikeToBike"], true);
+            drawRoute(data["BikeToEnd"], false);
         });
+}
+
+function drawRoute(route, isBike){
+    route = JSON.parse(route);
+    const points = new ol.format.GeoJSON().readFeatures(route, {
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857',
+    });
+    let routeCoords = [];
+    routeCoords.push(ol.proj.fromLonLat([route["Longitude"], route["Latitude"]]));
+
+
+    let routeSource = new ol.source.Vector({
+        features: points,
+    });
+    let routeLayer = new ol.layer.Vector({
+        source: routeSource,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'red'
+            }),
+            stroke: new ol.style.Stroke({
+                color: (isBike? 'red' : 'blue'),
+                width: 3
+            })
+        }),
+        zIndex: 10
+    });
+    map.addLayer(routeLayer);
+    console.log("drawn");
+    console.log(routeLayer);
 
 }

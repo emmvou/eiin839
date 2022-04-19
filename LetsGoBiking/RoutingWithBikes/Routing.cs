@@ -21,17 +21,27 @@ namespace RoutingWithBikes
 		//TODO call once with proxy route
 
         static List<Station> Stations = new List<Station>();
+        static List<Contract> Contracts = new List<Contract>();
 
 
 		public static async Task<List<Station>> InitStationList()
         {
-            await internalInit();
+            if(Stations.Count == 0)
+                await internalInit();
             return Stations;
+        }
+
+        public static async Task<List<Contract>> InitContractList()
+        {
+            if (Contracts.Count == 0)
+                await internalInit();
+            return Contracts;
         }
 
         private static async Task internalInit()
         {
             Stations = await CallStations();
+            Contracts = await CallContracts();
             //var client = new HttpClient();
             //var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Stations");
             //if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
@@ -56,7 +66,13 @@ namespace RoutingWithBikes
             return await CallProxy<List<Station>>("Stations", "");
         }
 
-		public static async Task<ComputedRoute> GetComputedRoute(Tuple<double, double> start, Tuple<double, double> end, string contract)
+        private static async Task<List<Contract>> CallContracts()
+        {
+            return await CallProxy<List<Contract>>("Contracts", "");
+        }
+
+
+        public static async Task<ComputedRoute> GetComputedRoute(Tuple<double, double> start, Tuple<double, double> end, string contract)
         {
             if (Stations.Count == 0)
             {
@@ -213,24 +229,25 @@ namespace RoutingWithBikes
 		}
     }
 
+    [DataContract]
 	public class Station : ICloneable
 	{
-		public int number { get; set; }
-		public string contractName { get; set; }
-		public string name { get; set; }
-		public string address { get; set; }
-		public Dictionary<string, double> position { get; set; }
-		public GeoCoordinate position2 { get; set; }
-		public bool banking { get; set; }
-		public bool bonus { get; set; }
-		public string status { get; set; }
-		public DateTime lastUpdate { get; set; }
-		public bool connected { get; set; }
-		public bool overflow { get; set; }
-		public object shape { get; set; }
-		public Stands totalStands { get; set; }
-		public Stands mainStands { get; set; }
-		public object overflowStands { get; set; }
+		[DataMember] public int number { get; set; }
+		[DataMember] public string contractName { get; set; }
+		[DataMember] public string name { get; set; }
+		[DataMember] public string address { get; set; }
+		[DataMember] public Dictionary<string, double> position { get; set; }
+		[DataMember] public GeoCoordinate position2 { get; set; }
+		[DataMember] public bool banking { get; set; }
+		[DataMember] public bool bonus { get; set; }
+		[DataMember] public string status { get; set; }
+		[DataMember] public DateTime lastUpdate { get; set; }
+		[DataMember] public bool connected { get; set; }
+		[DataMember] public bool overflow { get; set; }
+		[DataMember] public object shape { get; set; }
+		[DataMember] public Stands totalStands { get; set; }
+		[DataMember] public Stands mainStands { get; set; }
+		[DataMember] public object overflowStands { get; set; }
 
 		[JsonConstructor]
 		public Station(int number, string contractName, string name, string address, Dictionary<string, double> position,
