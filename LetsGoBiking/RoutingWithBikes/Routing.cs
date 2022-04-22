@@ -92,7 +92,7 @@ namespace RoutingWithBikes
         private static async Task<string> CallOpenRouteService(GeoCoordinate start, GeoCoordinate end, string profile)
         {
             return await RESTRoute("https://api.openrouteservice.org/v2/directions/", profile + "?"+
-                "api_key=5b3ce3597851110001cf624895c40c813bcc4f6a864a3d2cd032c5b0"+
+                "api_key=5b3ce3597851110001cf6248e622e9fdbb574103bd36807aaff5b7b2" +
                 "&start="+ start.Longitude.ToString(CultureInfo.InvariantCulture) + ","+start.Latitude.ToString(CultureInfo.InvariantCulture) +
                 "&end=" + end.Longitude.ToString(CultureInfo.InvariantCulture) + ","+ end.Latitude.ToString(CultureInfo.InvariantCulture));
         }
@@ -100,7 +100,7 @@ namespace RoutingWithBikes
         public static async Task<string> CallGeoCodeSearch(string pos)
         {
             return await RESTRoute("https://api.openrouteservice.org/geocode/search?",
-                "api_key=5b3ce3597851110001cf624895c40c813bcc4f6a864a3d2cd032c5b0&text=" + pos);
+                "api_key=5b3ce3597851110001cf6248e622e9fdbb574103bd36807aaff5b7b2&text=" + pos);
         }
 
         private static async Task<Station> getClosestStationWithBikes(List<Station> stations, GeoCoordinate position)
@@ -119,27 +119,7 @@ namespace RoutingWithBikes
 		private static async Task<Station> GetStation(int id, string contract)
         {
             return await CallProxy<Station>("Station","?x=" + id.ToString(CultureInfo.InvariantCulture) + "&contract=" + contract);
-			//on appelle le proxy
-			//var client = new HttpClient();
-            //var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Station?x="+ id.ToString()+"&contract="+contract);
-            //if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            //{
-            //    Console.WriteLine("error");
-            //    throw new Exception("Couldn't get list of stations");
-            //}
-            //var res = await response.Content.ReadAsStringAsync();
-            //Station s;
-            //try
-            //{
-            //    s = JsonSerializer.Deserialize<Station>(JsonSerializer.Deserialize<string>(res));
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("couldn't read list of stations");
-            //}
-			//
-            //return s;
-		}
+        }
 
         private static async Task<T> CallProxy<T>(string uri, string parameters)
         {
@@ -153,7 +133,7 @@ namespace RoutingWithBikes
             var response = await client.GetAsync(baseUri + parameters);
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
-                throw new Exception("wrong external route\nuri: "+baseUri+parameters);
+                throw new Exception("wrong external route\nuri: "+baseUri+parameters + await response.Content.ReadAsStringAsync());
             }
             return await response.Content.ReadAsStringAsync();
         }

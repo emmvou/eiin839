@@ -1,21 +1,40 @@
-.test {
-  color: red;
+
+.map {
+    height: 80%;
+    width: 80%;
 }
 
-.map{
-  height: 80%;
-  width: 80%;
+#bod {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-#startb{
-  background-color: green;
+#bod div {
+    width:100%;
+    display: flex;
+    flex-direction: row;
 }
 
-#endb{
-  background-color: red;
+#bod div div {
+    display: flex;
+    flex-direction: row;
 }
 
-body{
-  height: 100vh;
-  width: 100%;
+#startb {
+    background-color: green;
+}
+
+#endb {
+    background-color: red;
+}
+
+.left_flex{
+    justify-content: flex-end;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin:0;
 }

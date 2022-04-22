@@ -49,12 +49,14 @@ function drawTest() {
         return;
     }
     let opt = towns.options[towns.selectedIndex]; //huge vulnerability here
-    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat="+start[0][0]+"&startLong="+start[0][1]+"&endLat="+end[0][0]+"&endLong="+end[0][1]+"&contract="+opt.text,
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat="+start[0][1]+"&startLong="+start[0][0]+"&endLat="+end[0][1]+"&endLong="+end[0][0]+"&contract="+opt.text,
         function(data){
             console.log(data);
             drawRoute(data["StartToBike"], false);
             drawRoute(data["BikeToBike"], true);
             drawRoute(data["BikeToEnd"], false);
+        }).fail(function(data){
+            alert("No route found");
         });
 }
 
@@ -108,7 +110,8 @@ function drawMarker(coords, isStart){
                 color: (isStart ? 'red' : 'blue'),
                 width: 3
             })
-        })
+        }),
+        zIndex: 15
     });
     map.addLayer(vectorLayer);
 
