@@ -35,22 +35,14 @@ namespace RoutingWithBikes
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "SearchAddress?location={location}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        Task <string> SearchAddress(string location);
+
+        [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Route?startLat={startLat}&startLong={startLong}&endLat={endLat}&endLong={endLong}&contract={contract}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
-        Task <ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract);
+        Task<ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract);
 
-
-        //REST
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Add?x={value1}&y={value2}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
-        int Add(int value1, int value2);
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Mul?x={value1}&y={value2}", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json)]
-
-        int Multiply(int value1, int value2);
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Sub?x={value1}&y={value2}", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json)]
-        int Substract(int value1, int value2);
-
+        
         
     }
 

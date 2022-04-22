@@ -7,6 +7,14 @@
   width: 80%;
 }
 
+#startb{
+  background-color: green;
+}
+
+#endb{
+  background-color: red;
+}
+
 body{
   height: 100vh;
   width: 100%;

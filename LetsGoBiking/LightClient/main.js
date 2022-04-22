@@ -1,28 +1,8 @@
-function test(){
-    let div = document.getElementById("test");
-    div.classList.add("test");
-    div.appendChild(document.createTextNode("Hello World"));
-}
-
-//"Add?x={value1}&y={value2}"
-//http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/
-function testConnect(){
-    let request = new XMLHttpRequest();
-    request.open("get", "http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Add?x=1&y=2", true);
-    request.setRequestHeader("accept", "application/json");
-    request.onload = function(){
-        document.getElementById("testCon").appendChild(document.createTextNode("ÇA MARCHE"));
-        let cts = JSON.parse(this.responseText);
-        document.getElementById("testCon").appendChild(document.createTextNode("1+2="+cts["AddResult"]));
-        console.log("1+2="+cts["AddResult"]);
-    };
-    request.onerror = function(e){
-        console.log("error");
-        document.getElementById("testCon").appendChild(document.createTextNode("error sending request"));
-        console.log(e);
-        console.log(this);
-    };
-    request.send();
+const primaryMiddle = function(mapBrowserEvent) {
+    const pointerEvent = mapBrowserEvent;
+    //const pointerEvent = mapBrowserEvent.pointerEvent;
+    return pointerEvent.originalEvent.button === 1;
+    //return pointerEvent.isPrimary && pointerEvent.button === 1;
 }
 
 let map = new ol.Map({
@@ -35,32 +15,112 @@ let map = new ol.Map({
     view: new ol.View({
         center: ol.proj.fromLonLat([3.0, 47.0]),
         zoom: 6
-    })
+    }),
+    interactions: ol.interaction.defaults({ dragPan: false }).extend([
+        new ol.interaction.DragPan({
+            condition: function(mapBrowserEvent) {
+                return (
+                    ol.events.condition.noModifierKeys(mapBrowserEvent) && primaryMiddle(mapBrowserEvent)
+                );
+            }
+        })
+    ])
 });
 
 $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Contracts",
     function(data){
         console.log(data);
-        for(d in data){
+        for(let d in data){
             $("#towns").append("<option value='"+data[d].commercial_name+"'>"+data[d].name+"</option>");
         }
     });
 
+let drawnLayers = [];
 
 function drawTest() {
+    reset_map_content();
     let towns = $("#towns")[0];
     if(towns.value === ""){
         alert("Please select a town");
         return;
     }
+    if(start[0] === undefined || end[0] === undefined){
+        alert("Please select a start and an end point");
+        return;
+    }
     let opt = towns.options[towns.selectedIndex]; //huge vulnerability here
-    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat=45.784300&startLong=4.867518&endLat=45.751&endLong=4.681669&contract="+opt.text,
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/Route?startLat="+start[0][0]+"&startLong="+start[0][1]+"&endLat="+end[0][0]+"&endLong="+end[0][1]+"&contract="+opt.text,
         function(data){
             console.log(data);
             drawRoute(data["StartToBike"], false);
             drawRoute(data["BikeToBike"], true);
             drawRoute(data["BikeToEnd"], false);
         });
+}
+
+let start = [];
+let end = [];
+function findStart(){
+    let start = $("#start").val();
+    findLocation(start, true);
+}
+
+function findEnd(){
+    let end = $("#end").val();
+    findLocation(end, false);
+}
+
+function findLocation(location, isStart){
+    $.get("http://localhost:8733/Design_Time_Addresses/RoutingWithBikes/Service1/rest/SearchAddress?location="+location,
+        function(data){
+            data = JSON.parse(data)["features"][0]["geometry"]["coordinates"];
+            console.log(data);
+            // draw on map
+            let coords = ol.proj.fromLonLat([data[0], data[1]]);
+            drawMarker(coords, isStart);
+        });
+}
+
+function drawMarker(coords, isStart){
+    let marker = new ol.Feature({
+        geometry: new ol.geom.Point(coords)
+    });
+    let markerStyle = new ol.style.Style({
+        image: new ol.style.Icon(({
+            anchor: [0.5, 1],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'fraction',
+            src: (isStart ? 'https://pngimg.com/uploads/gps/gps_PNG65.png' : 'https://pngimg.com/uploads/gps/gps_PNG12.png'),
+            scale: (isStart? [0.01, 0.01] : [0.1, 0.1])
+        }))
+    });
+    marker.setStyle(markerStyle);
+    let vectorSource = new ol.source.Vector({
+        features: [marker]
+    });
+    let vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'red'
+            }),
+            stroke: new ol.style.Stroke({
+                color: (isStart ? 'red' : 'blue'),
+                width: 3
+            })
+        })
+    });
+    map.addLayer(vectorLayer);
+
+    let coord = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
+    console.log(coord);
+    if(isStart){
+        map.removeLayer(start[1]);
+        start = [coord, vectorLayer];
+    } else {
+        map.removeLayer(end[1]);
+        end = [coord, vectorLayer];
+    }
 }
 
 function drawRoute(route, isBike){
@@ -91,5 +151,34 @@ function drawRoute(route, isBike){
     map.addLayer(routeLayer);
     console.log("drawn");
     console.log(routeLayer);
+    drawnLayers.push(routeLayer);
 
+}
+
+function reset_map_content(){
+    for(let lay of drawnLayers){
+        map.removeLayer(lay);
+    }
+    drawnLayers = [];
+}
+map.addEventListener('contextmenu', event => event.preventDefault());
+map.on('pointerdown', function (evt) {
+    if(evt.originalEvent.button === 0){
+        addMarker(evt.coordinate, true);
+        evt.preventDefault();
+        evt.stopPropagation();
+    }
+    else if(evt.originalEvent.button === 2){
+        addMarker(evt.coordinate, false);
+        evt.preventDefault();
+        evt.stopPropagation();
+    }
+    else if(evt.originalEvent.button === 1){
+        evt.preventDefault();
+        //evt.stopPropagation();
+    }
+});
+
+function addMarker(coordinates, isLeft) {
+    drawMarker(coordinates, isLeft);
 }

@@ -11,7 +11,7 @@ namespace HeavyClient
         static void Main(string[] args)
         {
             RoutingService.Service1Client client = new RoutingService.Service1Client();
-            Console.WriteLine(client.GetAllStations());
+            //Console.WriteLine(client.GetAllStations());
             //Console.WriteLine(client.GetRoute(new Tuple<double, double>(45.774200, 4.867518), new Tuple<double, double>(45.75190, 4.821669), "Lyon"));
             //45.774204,4.867512
             //45.75197,4.821662

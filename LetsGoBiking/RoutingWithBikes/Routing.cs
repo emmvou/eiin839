@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -42,23 +43,6 @@ namespace RoutingWithBikes
         {
             Stations = await CallStations();
             Contracts = await CallContracts();
-            //var client = new HttpClient();
-            //var response = await client.GetAsync("http://localhost:8733/Design_Time_Addresses/WebProxyService/Service1/Stations");
-            //if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            //{
-            //    throw new Exception("Couldn't get list of stations");
-            //}
-            //var res = await response.Content.ReadAsStringAsync();
-            //List<Station> r;
-            //try
-            //{
-            //    r = JsonSerializer.Deserialize<List<Station>>(JsonSerializer.Deserialize<string>(res));
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("couldn't read list of stations");
-            //}
-            //Stations = r;
         }
 
         private static async Task<List<Station>> CallStations()
@@ -74,39 +58,49 @@ namespace RoutingWithBikes
 
         public static async Task<ComputedRoute> GetComputedRoute(Tuple<double, double> start, Tuple<double, double> end, string contract)
         {
+            var startPos = new GeoCoordinate(start.Item1, start.Item2);
+            var endPos = new GeoCoordinate(end.Item1, end.Item2);
+            return await GetRoute(startPos, endPos, contract);
+        }
+
+        public static async Task<ComputedRoute> GetRoute(GeoCoordinate start, GeoCoordinate end, string contract)
+        {
             if (Stations.Count == 0)
             {
                 await internalInit();
             }
-			//on prend toutes les stations du contrat
+
+            //on prend toutes les stations du contrat
             var stations = Stations.FindAll(s => s.contractName == contract);
             if (stations.Count == 0)
             {
                 throw new Exception("cannot find any station for given contract");
             }
-
-			//on trie les stations par proximité pour start, puis pour end
-            var startPos = new GeoCoordinate(start.Item1, start.Item2);
-            var endPos = new GeoCoordinate(end.Item1, end.Item2);
-
-			//on prend dans l'ordre jusqu'à la première qui a du stock de vélo
-            Station checkPoint1 = await getClosestStationWithBikes(stations, startPos);
-			Station checkPoint2 = await getClosestStationWithBikes(stations, endPos);
+            //on prend dans l'ordre jusqu'à la première qui a du stock de vélo
+            Station checkPoint1 = await getClosestStationWithBikes(stations, start);
+            Station checkPoint2 = await getClosestStationWithBikes(stations, end);
 
             //on appelle l'API à partir des arguments
-            var stb = await CallOpenRouteService(startPos, checkPoint1.position2, "foot-walking");
+            var stb = await CallOpenRouteService(start, checkPoint1.position2, "foot-walking");
             var btb = await CallOpenRouteService(checkPoint1.position2, checkPoint2.position2, "cycling-regular");
-            var bte = await CallOpenRouteService(checkPoint2.position2, endPos, "foot-walking");
+            var bte = await CallOpenRouteService(checkPoint2.position2, end, "foot-walking");
 
             return new ComputedRoute() { StartToBike = stb, BikeToBike = btb, BikeToEnd = bte };
         }
 
+        
         private static async Task<string> CallOpenRouteService(GeoCoordinate start, GeoCoordinate end, string profile)
         {
             return await RESTRoute("https://api.openrouteservice.org/v2/directions/", profile + "?"+
                 "api_key=5b3ce3597851110001cf624895c40c813bcc4f6a864a3d2cd032c5b0"+
                 "&start="+ start.Longitude.ToString(CultureInfo.InvariantCulture) + ","+start.Latitude.ToString(CultureInfo.InvariantCulture) +
                 "&end=" + end.Longitude.ToString(CultureInfo.InvariantCulture) + ","+ end.Latitude.ToString(CultureInfo.InvariantCulture));
+        }
+
+        public static async Task<string> CallGeoCodeSearch(string pos)
+        {
+            return await RESTRoute("https://api.openrouteservice.org/geocode/search?",
+                "api_key=5b3ce3597851110001cf624895c40c813bcc4f6a864a3d2cd032c5b0&text=" + pos);
         }
 
         private static async Task<Station> getClosestStationWithBikes(List<Station> stations, GeoCoordinate position)

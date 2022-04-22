@@ -57,22 +57,9 @@ namespace RoutingWithBikes
             return await Routing.GetComputedRoute(new Tuple<double, double>(startLat, startLong), new Tuple<double, double>(endLat, endLong), contract);
         }
 
-        //REST
-        public int Add(int value1, int value2)
+        public async Task<string> SearchAddress(string location)
         {
-            return value1 + value2;
+            return await Routing.CallGeoCodeSearch(location);
         }
-
-        public int Multiply(int value1, int value2)
-        {
-            return value1 * value2;
-        }
-
-        public int Substract(int value1, int value2)
-        {
-            return value1 - value2;
-        }
-
-        
     }
 }
