@@ -65,7 +65,6 @@ namespace WebProxyService
     class CustomCache
     {
         ObjectCache cache = MemoryCache.Default;
-        private DateTimeOffset offset;
 
         public async Task<string> Get(string id, string contract)
         {
@@ -81,7 +80,7 @@ namespace WebProxyService
                 return "Bad request";
             }
             var res = await response.Content.ReadAsStringAsync();
-            cache.Add(id, res, offset);
+            cache.Add(id, res, DateTimeOffset.Now.AddSeconds(60));
             return res;
         }
     }

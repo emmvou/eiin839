@@ -1,40 +1,10 @@
-
-.map {
-    height: 80%;
-    width: 80%;
-}
-
-#bod {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-#bod div {
-    width:100%;
-    display: flex;
-    flex-direction: row;
-}
-
-#bod div div {
-    display: flex;
-    flex-direction: row;
-}
-
-#startb {
-    background-color: green;
-}
-
-#endb {
-    background-color: red;
-}
-
-.left_flex{
-    justify-content: flex-end;
-}
-
 body {
     height: 100vh;
-    width: 100%;
+    /*width: 100%;*/
     margin:0;
+}
+
+.map {
+    height: 70%;
+    /*width: 80%;*/
 }
