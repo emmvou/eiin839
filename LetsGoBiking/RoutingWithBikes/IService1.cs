@@ -13,9 +13,6 @@ namespace RoutingWithBikes
     [ServiceContract]
     public interface IService1
     {
-        //SOAP
-        [OperationContract]
-        string GetData(int value);
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Stations", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
@@ -24,15 +21,6 @@ namespace RoutingWithBikes
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "Contracts", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         Task<List<Contract>> GetAllContracts();
-
-        [OperationContract]
-        Task<string> Test();
-
-        [OperationContract]
-        Task<Tuple<GeoCoordinate, GeoCoordinate>> GetTwoClosestStations(Tuple<Tuple<double, double>, Tuple<double, double>> locations);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "SearchAddress?location={location}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
@@ -44,29 +32,6 @@ namespace RoutingWithBikes
 
         
         
-    }
-
-    // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.
-    // Vous pouvez ajouter des fichiers XSD au projet. Une fois le projet généré, vous pouvez utiliser directement les types de données qui y sont définis, avec l'espace de noms "RoutingWithBikes.ContractType".
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 
     [DataContract]

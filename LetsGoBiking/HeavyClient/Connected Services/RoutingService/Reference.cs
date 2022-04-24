@@ -15,6 +15,361 @@ namespace HeavyClient.RoutingService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Station", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Station[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Stands))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Availabilities))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Contract[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Contract))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.ComputedRoute))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, double>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.GeoCoordinate))]
+    public partial class Station : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string addressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool bankingField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool bonusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool connectedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string contractNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime lastUpdateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private HeavyClient.RoutingService.Stands mainStandsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool overflowField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object overflowStandsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.Dictionary<string, double> positionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private HeavyClient.RoutingService.GeoCoordinate position2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object shapeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private HeavyClient.RoutingService.Stands totalStandsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string address {
+            get {
+                return this.addressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.addressField, value) != true)) {
+                    this.addressField = value;
+                    this.RaisePropertyChanged("address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool banking {
+            get {
+                return this.bankingField;
+            }
+            set {
+                if ((this.bankingField.Equals(value) != true)) {
+                    this.bankingField = value;
+                    this.RaisePropertyChanged("banking");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool bonus {
+            get {
+                return this.bonusField;
+            }
+            set {
+                if ((this.bonusField.Equals(value) != true)) {
+                    this.bonusField = value;
+                    this.RaisePropertyChanged("bonus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool connected {
+            get {
+                return this.connectedField;
+            }
+            set {
+                if ((this.connectedField.Equals(value) != true)) {
+                    this.connectedField = value;
+                    this.RaisePropertyChanged("connected");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string contractName {
+            get {
+                return this.contractNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.contractNameField, value) != true)) {
+                    this.contractNameField = value;
+                    this.RaisePropertyChanged("contractName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime lastUpdate {
+            get {
+                return this.lastUpdateField;
+            }
+            set {
+                if ((this.lastUpdateField.Equals(value) != true)) {
+                    this.lastUpdateField = value;
+                    this.RaisePropertyChanged("lastUpdate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public HeavyClient.RoutingService.Stands mainStands {
+            get {
+                return this.mainStandsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.mainStandsField, value) != true)) {
+                    this.mainStandsField = value;
+                    this.RaisePropertyChanged("mainStands");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int number {
+            get {
+                return this.numberField;
+            }
+            set {
+                if ((this.numberField.Equals(value) != true)) {
+                    this.numberField = value;
+                    this.RaisePropertyChanged("number");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool overflow {
+            get {
+                return this.overflowField;
+            }
+            set {
+                if ((this.overflowField.Equals(value) != true)) {
+                    this.overflowField = value;
+                    this.RaisePropertyChanged("overflow");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object overflowStands {
+            get {
+                return this.overflowStandsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.overflowStandsField, value) != true)) {
+                    this.overflowStandsField = value;
+                    this.RaisePropertyChanged("overflowStands");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.Dictionary<string, double> position {
+            get {
+                return this.positionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.positionField, value) != true)) {
+                    this.positionField = value;
+                    this.RaisePropertyChanged("position");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public HeavyClient.RoutingService.GeoCoordinate position2 {
+            get {
+                return this.position2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.position2Field, value) != true)) {
+                    this.position2Field = value;
+                    this.RaisePropertyChanged("position2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object shape {
+            get {
+                return this.shapeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.shapeField, value) != true)) {
+                    this.shapeField = value;
+                    this.RaisePropertyChanged("shape");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusField, value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public HeavyClient.RoutingService.Stands totalStands {
+            get {
+                return this.totalStandsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.totalStandsField, value) != true)) {
+                    this.totalStandsField = value;
+                    this.RaisePropertyChanged("totalStands");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Stands", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
+    [System.SerializableAttribute()]
+    public partial class Stands : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private HeavyClient.RoutingService.Availabilities availabilitiesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int capacityField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public HeavyClient.RoutingService.Availabilities availabilities {
+            get {
+                return this.availabilitiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.availabilitiesField, value) != true)) {
+                    this.availabilitiesField = value;
+                    this.RaisePropertyChanged("availabilities");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int capacity {
+            get {
+                return this.capacityField;
+            }
+            set {
+                if ((this.capacityField.Equals(value) != true)) {
+                    this.capacityField = value;
+                    this.RaisePropertyChanged("capacity");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GeoCoordinate", Namespace="http://schemas.datacontract.org/2004/07/System.Device.Location")]
     [System.SerializableAttribute()]
     public partial class GeoCoordinate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -156,18 +511,30 @@ namespace HeavyClient.RoutingService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Availabilities", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
     [System.SerializableAttribute()]
-    public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Availabilities : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
+        private int bikesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
+        private int electricalBikesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int electricalInternalBatteryBikesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int electricalRemovableBatteryBikesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int mechanicalBikesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int standsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -180,27 +547,172 @@ namespace HeavyClient.RoutingService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
+        public int bikes {
             get {
-                return this.BoolValueField;
+                return this.bikesField;
             }
             set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
+                if ((this.bikesField.Equals(value) != true)) {
+                    this.bikesField = value;
+                    this.RaisePropertyChanged("bikes");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
+        public int electricalBikes {
             get {
-                return this.StringValueField;
+                return this.electricalBikesField;
             }
             set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
+                if ((this.electricalBikesField.Equals(value) != true)) {
+                    this.electricalBikesField = value;
+                    this.RaisePropertyChanged("electricalBikes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int electricalInternalBatteryBikes {
+            get {
+                return this.electricalInternalBatteryBikesField;
+            }
+            set {
+                if ((this.electricalInternalBatteryBikesField.Equals(value) != true)) {
+                    this.electricalInternalBatteryBikesField = value;
+                    this.RaisePropertyChanged("electricalInternalBatteryBikes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int electricalRemovableBatteryBikes {
+            get {
+                return this.electricalRemovableBatteryBikesField;
+            }
+            set {
+                if ((this.electricalRemovableBatteryBikesField.Equals(value) != true)) {
+                    this.electricalRemovableBatteryBikesField = value;
+                    this.RaisePropertyChanged("electricalRemovableBatteryBikes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int mechanicalBikes {
+            get {
+                return this.mechanicalBikesField;
+            }
+            set {
+                if ((this.mechanicalBikesField.Equals(value) != true)) {
+                    this.mechanicalBikesField = value;
+                    this.RaisePropertyChanged("mechanicalBikes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int stands {
+            get {
+                return this.standsField;
+            }
+            set {
+                if ((this.standsField.Equals(value) != true)) {
+                    this.standsField = value;
+                    this.RaisePropertyChanged("stands");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Contract", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
+    [System.SerializableAttribute()]
+    public partial class Contract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] citiesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string commercial_nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string country_codeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] cities {
+            get {
+                return this.citiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.citiesField, value) != true)) {
+                    this.citiesField = value;
+                    this.RaisePropertyChanged("cities");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string commercial_name {
+            get {
+                return this.commercial_nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.commercial_nameField, value) != true)) {
+                    this.commercial_nameField = value;
+                    this.RaisePropertyChanged("commercial_name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string country_code {
+            get {
+                return this.country_codeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.country_codeField, value) != true)) {
+                    this.country_codeField = value;
+                    this.RaisePropertyChanged("country_code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
                 }
             }
         }
@@ -296,59 +808,29 @@ namespace HeavyClient.RoutingService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RoutingService.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        string GetData(int value);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStations", ReplyAction="http://tempuri.org/IService1/GetAllStationsResponse")]
+        HeavyClient.RoutingService.Station[] GetAllStations();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStations", ReplyAction="http://tempuri.org/IService1/GetAllStationsResponse")]
-        string GetAllStations();
+        System.Threading.Tasks.Task<HeavyClient.RoutingService.Station[]> GetAllStationsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStations", ReplyAction="http://tempuri.org/IService1/GetAllStationsResponse")]
-        System.Threading.Tasks.Task<string> GetAllStationsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllContracts", ReplyAction="http://tempuri.org/IService1/GetAllContractsResponse")]
+        HeavyClient.RoutingService.Contract[] GetAllContracts();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Test", ReplyAction="http://tempuri.org/IService1/TestResponse")]
-        string Test();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllContracts", ReplyAction="http://tempuri.org/IService1/GetAllContractsResponse")]
+        System.Threading.Tasks.Task<HeavyClient.RoutingService.Contract[]> GetAllContractsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Test", ReplyAction="http://tempuri.org/IService1/TestResponse")]
-        System.Threading.Tasks.Task<string> TestAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SearchAddress", ReplyAction="http://tempuri.org/IService1/SearchAddressResponse")]
+        string SearchAddress(string location);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTwoClosestStations", ReplyAction="http://tempuri.org/IService1/GetTwoClosestStationsResponse")]
-        System.Tuple<HeavyClient.RoutingService.GeoCoordinate, HeavyClient.RoutingService.GeoCoordinate> GetTwoClosestStations(System.Tuple<System.Tuple<double, double>, System.Tuple<double, double>> locations);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTwoClosestStations", ReplyAction="http://tempuri.org/IService1/GetTwoClosestStationsResponse")]
-        System.Threading.Tasks.Task<System.Tuple<HeavyClient.RoutingService.GeoCoordinate, HeavyClient.RoutingService.GeoCoordinate>> GetTwoClosestStationsAsync(System.Tuple<System.Tuple<double, double>, System.Tuple<double, double>> locations);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        HeavyClient.RoutingService.CompositeType GetDataUsingDataContract(HeavyClient.RoutingService.CompositeType composite);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<HeavyClient.RoutingService.CompositeType> GetDataUsingDataContractAsync(HeavyClient.RoutingService.CompositeType composite);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SearchAddress", ReplyAction="http://tempuri.org/IService1/SearchAddressResponse")]
+        System.Threading.Tasks.Task<string> SearchAddressAsync(string location);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRoute", ReplyAction="http://tempuri.org/IService1/GetRouteResponse")]
-        HeavyClient.RoutingService.ComputedRoute GetRoute(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract);
+        HeavyClient.RoutingService.ComputedRoute GetRoute(double startLat, double startLong, double endLat, double endLong, string contract);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRoute", ReplyAction="http://tempuri.org/IService1/GetRouteResponse")]
-        System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Add", ReplyAction="http://tempuri.org/IService1/AddResponse")]
-        int Add(int value1, int value2);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Add", ReplyAction="http://tempuri.org/IService1/AddResponse")]
-        System.Threading.Tasks.Task<int> AddAsync(int value1, int value2);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Multiply", ReplyAction="http://tempuri.org/IService1/MultiplyResponse")]
-        int Multiply(int value1, int value2);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Multiply", ReplyAction="http://tempuri.org/IService1/MultiplyResponse")]
-        System.Threading.Tasks.Task<int> MultiplyAsync(int value1, int value2);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Substract", ReplyAction="http://tempuri.org/IService1/SubstractResponse")]
-        int Substract(int value1, int value2);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Substract", ReplyAction="http://tempuri.org/IService1/SubstractResponse")]
-        System.Threading.Tasks.Task<int> SubstractAsync(int value1, int value2);
+        System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(double startLat, double startLong, double endLat, double endLong, string contract);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -378,76 +860,36 @@ namespace HeavyClient.RoutingService {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
-        }
-        
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
-        }
-        
-        public string GetAllStations() {
+        public HeavyClient.RoutingService.Station[] GetAllStations() {
             return base.Channel.GetAllStations();
         }
         
-        public System.Threading.Tasks.Task<string> GetAllStationsAsync() {
+        public System.Threading.Tasks.Task<HeavyClient.RoutingService.Station[]> GetAllStationsAsync() {
             return base.Channel.GetAllStationsAsync();
         }
         
-        public string Test() {
-            return base.Channel.Test();
+        public HeavyClient.RoutingService.Contract[] GetAllContracts() {
+            return base.Channel.GetAllContracts();
         }
         
-        public System.Threading.Tasks.Task<string> TestAsync() {
-            return base.Channel.TestAsync();
+        public System.Threading.Tasks.Task<HeavyClient.RoutingService.Contract[]> GetAllContractsAsync() {
+            return base.Channel.GetAllContractsAsync();
         }
         
-        public System.Tuple<HeavyClient.RoutingService.GeoCoordinate, HeavyClient.RoutingService.GeoCoordinate> GetTwoClosestStations(System.Tuple<System.Tuple<double, double>, System.Tuple<double, double>> locations) {
-            return base.Channel.GetTwoClosestStations(locations);
+        public string SearchAddress(string location) {
+            return base.Channel.SearchAddress(location);
         }
         
-        public System.Threading.Tasks.Task<System.Tuple<HeavyClient.RoutingService.GeoCoordinate, HeavyClient.RoutingService.GeoCoordinate>> GetTwoClosestStationsAsync(System.Tuple<System.Tuple<double, double>, System.Tuple<double, double>> locations) {
-            return base.Channel.GetTwoClosestStationsAsync(locations);
+        public System.Threading.Tasks.Task<string> SearchAddressAsync(string location) {
+            return base.Channel.SearchAddressAsync(location);
         }
         
-        public HeavyClient.RoutingService.CompositeType GetDataUsingDataContract(HeavyClient.RoutingService.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContract(composite);
+        public HeavyClient.RoutingService.ComputedRoute GetRoute(double startLat, double startLong, double endLat, double endLong, string contract) {
+            return base.Channel.GetRoute(startLat, startLong, endLat, endLong, contract);
         }
         
-        public System.Threading.Tasks.Task<HeavyClient.RoutingService.CompositeType> GetDataUsingDataContractAsync(HeavyClient.RoutingService.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
-        }
-        
-        public HeavyClient.RoutingService.ComputedRoute GetRoute(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract) {
-            return base.Channel.GetRoute(start, end, contract);
-        }
-        
-        public System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(System.Tuple<double, double> start, System.Tuple<double, double> end, string contract) {
-            return base.Channel.GetRouteAsync(start, end, contract);
-        }
-        
-        public int Add(int value1, int value2) {
-            return base.Channel.Add(value1, value2);
-        }
-        
-        public System.Threading.Tasks.Task<int> AddAsync(int value1, int value2) {
-            return base.Channel.AddAsync(value1, value2);
-        }
-        
-        public int Multiply(int value1, int value2) {
-            return base.Channel.Multiply(value1, value2);
-        }
-        
-        public System.Threading.Tasks.Task<int> MultiplyAsync(int value1, int value2) {
-            return base.Channel.MultiplyAsync(value1, value2);
-        }
-        
-        public int Substract(int value1, int value2) {
-            return base.Channel.Substract(value1, value2);
-        }
-        
-        public System.Threading.Tasks.Task<int> SubstractAsync(int value1, int value2) {
-            return base.Channel.SubstractAsync(value1, value2);
+        public System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(double startLat, double startLong, double endLat, double endLong, string contract) {
+            return base.Channel.GetRouteAsync(startLat, startLong, endLat, endLong, contract);
         }
     }
 }

@@ -24,34 +24,6 @@ namespace RoutingWithBikes
             return await Routing.InitContractList();
         }
 
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
-
-        public async Task<string> Test()
-        {
-            return await Routing.Fct();
-        }
-
-        public async Task<Tuple<GeoCoordinate, GeoCoordinate>> GetTwoClosestStations(Tuple<Tuple<double, double>, Tuple<double, double>> locations)
-        {
-            return await Routing.ClosestStations(locations.Item1, locations.Item2);
-        }
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
-
         public async Task<ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract)
         {
             return await Routing.GetComputedRoute(new Tuple<double, double>(startLat, startLong), new Tuple<double, double>(endLat, endLong), contract);

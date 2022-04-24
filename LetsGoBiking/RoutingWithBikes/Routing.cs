@@ -17,9 +17,7 @@ using System.Web.Script.Serialization;
 namespace RoutingWithBikes
 {
 	internal class Routing
-		//TODO calculer plus intelligemment que juste à vol d'oiseau
 	{
-		//TODO call once with proxy route
 
         static List<Station> Stations = new List<Station>();
         static List<Contract> Contracts = new List<Contract>();
@@ -153,54 +151,6 @@ namespace RoutingWithBikes
             return s;
         }
 
-		public static async Task<string> Fct()
-		{
-			var contract = "lyon";
-			GeoCoordinate gps = new GeoCoordinate(4, 5);
-			var key = "apiKey=f51f7e272f7aa2c0b30e9e3f6d6d3ea8fa202c8e";
-			var baseUri = "https://api.jcdecaux.com/vls/v1/";
-			var resContract = "contracts";
-			var resStation = "stations";
-			var client = new HttpClient();
-			var response = await client.GetAsync(baseUri + "/" + resStation + "?" + "contract=" + contract + "&" + key);
-			if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-			{
-				return "Bad request";
-			}
-
-			var res = await response.Content.ReadAsStringAsync();
-			var r = JsonSerializer.Deserialize<List<Station>>(res);
-
-			//r.ForEach(Console.WriteLine);
-			var closest = r.First(pos => gps.GetDistanceTo(pos.position2) == r.Min(min => gps.GetDistanceTo(min.position2)));
-			return "closest station is " + closest.name;
-		}
-
-		public static async Task<Tuple<GeoCoordinate, GeoCoordinate>> ClosestStations(Tuple<double, double> startC, Tuple<double,double> endC)
-		{
-			// TODO trouver la ville du contrat
-			var contract = "lyon";
-			GeoCoordinate start = new GeoCoordinate(startC.Item1, startC.Item2);
-			GeoCoordinate end = new GeoCoordinate(endC.Item1, endC.Item2);
-
-			var key = "apiKey=f51f7e272f7aa2c0b30e9e3f6d6d3ea8fa202c8e";
-			var baseUri = "https://api.jcdecaux.com/vls/v1/";
-			var resContract = "contracts";
-			var resStation = "stations";
-			var client = new HttpClient();
-			var response = await client.GetAsync(baseUri + "/" + resStation + "?" + "contract=" + contract + "&" + key);
-			if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-			{
-				throw new Exception("JDCAUX error");
-			}
-
-			var res = await response.Content.ReadAsStringAsync();
-			var r = JsonSerializer.Deserialize<List<Station>>(res);
-
-			var closestStart = r.First(pos => start.GetDistanceTo(pos.position2) == r.Min(min => start.GetDistanceTo(min.position2)));
-			var closestEnd = r.First(pos => end.GetDistanceTo(pos.position2) == r.Min(min => end.GetDistanceTo(min.position2)));
-			return new Tuple<GeoCoordinate, GeoCoordinate>(closestStart.position2, closestEnd.position2);
-		}
     }
 
     [DataContract]

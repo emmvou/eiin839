@@ -4,40 +4,28 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Device.Location" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Device.Location" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService1_GetData_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetData" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetData_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_GetAllStations_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllStations" />
   </wsdl:message>
   <wsdl:message name="IService1_GetAllStations_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllStationsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_Test_InputMessage">
-    <wsdl:part name="parameters" element="tns:Test" />
+  <wsdl:message name="IService1_GetAllContracts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllContracts" />
   </wsdl:message>
-  <wsdl:message name="IService1_Test_OutputMessage">
-    <wsdl:part name="parameters" element="tns:TestResponse" />
+  <wsdl:message name="IService1_GetAllContracts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllContractsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetTwoClosestStations_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTwoClosestStations" />
+  <wsdl:message name="IService1_SearchAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchAddress" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetTwoClosestStations_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTwoClosestStationsResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetDataUsingDataContract_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetDataUsingDataContract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  <wsdl:message name="IService1_SearchAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchAddressResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_GetRoute_InputMessage">
     <wsdl:part name="parameters" element="tns:GetRoute" />
@@ -45,73 +33,26 @@
   <wsdl:message name="IService1_GetRoute_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetRouteResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_Add_InputMessage">
-    <wsdl:part name="parameters" element="tns:Add" />
-  </wsdl:message>
-  <wsdl:message name="IService1_Add_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AddResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_Multiply_InputMessage">
-    <wsdl:part name="parameters" element="tns:Multiply" />
-  </wsdl:message>
-  <wsdl:message name="IService1_Multiply_OutputMessage">
-    <wsdl:part name="parameters" element="tns:MultiplyResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_Substract_InputMessage">
-    <wsdl:part name="parameters" element="tns:Substract" />
-  </wsdl:message>
-  <wsdl:message name="IService1_Substract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SubstractResponse" />
-  </wsdl:message>
   <wsdl:portType name="IService1">
-    <wsdl:operation name="GetData">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetAllStations">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllStations" message="tns:IService1_GetAllStations_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllStationsResponse" message="tns:IService1_GetAllStations_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Test">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Test" message="tns:IService1_Test_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TestResponse" message="tns:IService1_Test_OutputMessage" />
+    <wsdl:operation name="GetAllContracts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllContracts" message="tns:IService1_GetAllContracts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllContractsResponse" message="tns:IService1_GetAllContracts_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetTwoClosestStations">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTwoClosestStations" message="tns:IService1_GetTwoClosestStations_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTwoClosestStationsResponse" message="tns:IService1_GetTwoClosestStations_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContract" message="tns:IService1_GetDataUsingDataContract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContractResponse" message="tns:IService1_GetDataUsingDataContract_OutputMessage" />
+    <wsdl:operation name="SearchAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchAddress" message="tns:IService1_SearchAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchAddressResponse" message="tns:IService1_SearchAddress_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetRoute">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetRoute" message="tns:IService1_GetRoute_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetRouteResponse" message="tns:IService1_GetRoute_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Add">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Add" message="tns:IService1_Add_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddResponse" message="tns:IService1_Add_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Multiply">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Multiply" message="tns:IService1_Multiply_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MultiplyResponse" message="tns:IService1_Multiply_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Substract">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Substract" message="tns:IService1_Substract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SubstractResponse" message="tns:IService1_Substract_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetData">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetAllStations">
       <soap:operation soapAction="http://tempuri.org/IService1/GetAllStations" style="document" />
       <wsdl:input>
@@ -121,8 +62,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Test">
-      <soap:operation soapAction="http://tempuri.org/IService1/Test" style="document" />
+    <wsdl:operation name="GetAllContracts">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllContracts" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -130,17 +71,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTwoClosestStations">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetTwoClosestStations" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetDataUsingDataContract" style="document" />
+    <wsdl:operation name="SearchAddress">
+      <soap:operation soapAction="http://tempuri.org/IService1/SearchAddress" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -150,33 +82,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetRoute">
       <soap:operation soapAction="http://tempuri.org/IService1/GetRoute" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Add">
-      <soap:operation soapAction="http://tempuri.org/IService1/Add" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Multiply">
-      <soap:operation soapAction="http://tempuri.org/IService1/Multiply" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Substract">
-      <soap:operation soapAction="http://tempuri.org/IService1/Substract" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
