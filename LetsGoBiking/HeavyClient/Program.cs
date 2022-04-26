@@ -16,6 +16,8 @@ namespace HeavyClient
             DateTime t = DateTime.Now;
             Console.WriteLine($"{client.GetAllStations()} took {DateTime.Now.Subtract(t)} to compute");
             t = DateTime.Now;
+            Console.WriteLine($"{client.GetAllStations()} took {DateTime.Now.Subtract(t)} to compute");
+            t = DateTime.Now;
             Console.WriteLine($"{client.GetRoute(4.835571, 45.732398, 4.748162441997923, 45.85909499964853, "lyon")} took {DateTime.Now.Subtract(t)} to compute");
             t = DateTime.Now;
             Console.WriteLine($"{client.GetRoute(4.835571, 45.732398, 4.748162441997923, 45.85909499964853, "lyon")} took {DateTime.Now.Subtract(t)} to compute");
