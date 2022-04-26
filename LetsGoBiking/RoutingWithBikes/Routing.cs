@@ -76,7 +76,7 @@ namespace RoutingWithBikes
             }
             //on prend dans l'ordre jusqu'à la première qui a du stock de vélo
             Station checkPoint1 = await getClosestStationWithBikes(stations, start);
-            Station checkPoint2 = await getClosestStationWithBikes(stations, end);
+            Station checkPoint2 = await getClosestStationWithStands(stations, end);
 
             //on appelle l'API à partir des arguments
             var stb = await CallOpenRouteService(start, checkPoint1.position2, "foot-walking");
@@ -114,7 +114,20 @@ namespace RoutingWithBikes
             throw new Exception("no bikes available anywhere");
 		}
 
-		private static async Task<Station> GetStation(int id, string contract)
+        private static async Task<Station> getClosestStationWithStands(List<Station> stations, GeoCoordinate position)
+        {
+            foreach (var s in stations.OrderBy(pos => position.GetDistanceTo(pos.position2)))
+            {
+                var st = await GetStation(s.number, s.contractName);
+                if (st.totalStands.capacity - st.totalStands.availabilities.bikes > 0)
+                {
+                    return st;
+                }
+            }
+            throw new Exception("no bikes available anywhere");
+        }
+
+        private static async Task<Station> GetStation(int id, string contract)
         {
             return await CallProxy<Station>("Station","?x=" + id.ToString(CultureInfo.InvariantCulture) + "&contract=" + contract);
         }
