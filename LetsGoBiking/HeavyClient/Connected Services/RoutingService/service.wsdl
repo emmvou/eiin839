@@ -33,6 +33,12 @@
   <wsdl:message name="IService1_GetRoute_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetRouteResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetStation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStation" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStationResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetAllStations">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllStations" message="tns:IService1_GetAllStations_InputMessage" />
@@ -49,6 +55,10 @@
     <wsdl:operation name="GetRoute">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetRoute" message="tns:IService1_GetRoute_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetRouteResponse" message="tns:IService1_GetRoute_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStation" message="tns:IService1_GetStation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStationResponse" message="tns:IService1_GetStation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -82,6 +92,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetRoute">
       <soap:operation soapAction="http://tempuri.org/IService1/GetRoute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStation">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetStation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

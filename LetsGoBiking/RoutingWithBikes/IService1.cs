@@ -30,8 +30,11 @@ namespace RoutingWithBikes
         [WebInvoke(Method = "GET", UriTemplate = "Route?startLat={startLat}&startLong={startLong}&endLat={endLat}&endLong={endLong}&contract={contract}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         Task<ComputedRoute> GetRoute(double startLat, double startLong, double endLat, double endLong, string contract);
 
-        
-        
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Station?id={id}&contract={contract}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        Task<Station> GetStation(int id, string contract);
+
+
     }
 
     [DataContract]

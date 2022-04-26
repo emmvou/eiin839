@@ -17,15 +17,6 @@ namespace HeavyClient.RoutingService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Station", Namespace="http://schemas.datacontract.org/2004/07/RoutingWithBikes")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Station[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Stands))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Availabilities))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Contract[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.Contract))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.ComputedRoute))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, double>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(HeavyClient.RoutingService.GeoCoordinate))]
     public partial class Station : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -62,16 +53,10 @@ namespace HeavyClient.RoutingService {
         private bool overflowField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object overflowStandsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.Dictionary<string, double> positionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private HeavyClient.RoutingService.GeoCoordinate position2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object shapeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string statusField;
@@ -220,19 +205,6 @@ namespace HeavyClient.RoutingService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object overflowStands {
-            get {
-                return this.overflowStandsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.overflowStandsField, value) != true)) {
-                    this.overflowStandsField = value;
-                    this.RaisePropertyChanged("overflowStands");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.Dictionary<string, double> position {
             get {
                 return this.positionField;
@@ -254,19 +226,6 @@ namespace HeavyClient.RoutingService {
                 if ((object.ReferenceEquals(this.position2Field, value) != true)) {
                     this.position2Field = value;
                     this.RaisePropertyChanged("position2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public object shape {
-            get {
-                return this.shapeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.shapeField, value) != true)) {
-                    this.shapeField = value;
-                    this.RaisePropertyChanged("shape");
                 }
             }
         }
@@ -831,6 +790,12 @@ namespace HeavyClient.RoutingService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRoute", ReplyAction="http://tempuri.org/IService1/GetRouteResponse")]
         System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(double startLat, double startLong, double endLat, double endLong, string contract);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStation", ReplyAction="http://tempuri.org/IService1/GetStationResponse")]
+        HeavyClient.RoutingService.Station GetStation(int id, string contract);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStation", ReplyAction="http://tempuri.org/IService1/GetStationResponse")]
+        System.Threading.Tasks.Task<HeavyClient.RoutingService.Station> GetStationAsync(int id, string contract);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -890,6 +855,14 @@ namespace HeavyClient.RoutingService {
         
         public System.Threading.Tasks.Task<HeavyClient.RoutingService.ComputedRoute> GetRouteAsync(double startLat, double startLong, double endLat, double endLong, string contract) {
             return base.Channel.GetRouteAsync(startLat, startLong, endLat, endLong, contract);
+        }
+        
+        public HeavyClient.RoutingService.Station GetStation(int id, string contract) {
+            return base.Channel.GetStation(id, contract);
+        }
+        
+        public System.Threading.Tasks.Task<HeavyClient.RoutingService.Station> GetStationAsync(int id, string contract) {
+            return base.Channel.GetStationAsync(id, contract);
         }
     }
 }

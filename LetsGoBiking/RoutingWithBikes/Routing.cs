@@ -127,7 +127,7 @@ namespace RoutingWithBikes
             throw new Exception("no bikes available anywhere");
         }
 
-        private static async Task<Station> GetStation(int id, string contract)
+        public static async Task<Station> GetStation(int id, string contract)
         {
             return await CallProxy<Station>("Station","?x=" + id.ToString(CultureInfo.InvariantCulture) + "&contract=" + contract);
         }
@@ -181,15 +181,13 @@ namespace RoutingWithBikes
 		[DataMember] public DateTime lastUpdate { get; set; }
 		[DataMember] public bool connected { get; set; }
 		[DataMember] public bool overflow { get; set; }
-		[DataMember] public object shape { get; set; }
 		[DataMember] public Stands totalStands { get; set; }
 		[DataMember] public Stands mainStands { get; set; }
-		[DataMember] public object overflowStands { get; set; }
 
 		[JsonConstructor]
 		public Station(int number, string contractName, string name, string address, Dictionary<string, double> position,
 			bool banking, bool bonus, string status, DateTime lastUpdate, bool connected,
-			bool overflow, object shape, Stands totalStands, Stands mainStands, object overflowStands)
+			bool overflow, Stands totalStands, Stands mainStands)
 		{
 			this.number = number;
 			this.contractName = contractName;
@@ -203,10 +201,8 @@ namespace RoutingWithBikes
 			this.lastUpdate = lastUpdate;
 			this.connected = connected;
 			this.overflow = overflow;
-			this.shape = shape;
 			this.totalStands = totalStands;
 			this.mainStands = mainStands;
-			this.overflowStands = overflowStands;
 		}
 
 		public override string ToString()
@@ -219,7 +215,7 @@ namespace RoutingWithBikes
         public object Clone()
         {
             return new Station(number, contractName, name, address, position, banking, bonus, status, lastUpdate,
-                connected, overflow, shape, totalStands, mainStands, overflowStands);
+                connected, overflow, totalStands, mainStands);
         }
     }
 

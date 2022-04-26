@@ -33,5 +33,10 @@ namespace RoutingWithBikes
         {
             return await Routing.CallGeoCodeSearch(location);
         }
+
+        public async Task<Station> GetStation(int id, string contract)
+        {
+            return await Routing.GetStation(id, contract);
+        }
     }
 }
