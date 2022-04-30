@@ -80,7 +80,7 @@ namespace WebProxyService
                 return "Bad request";
             }
             var res = await response.Content.ReadAsStringAsync();
-            cache.Add(id, res, DateTimeOffset.Now.AddSeconds(60));
+            cache.Add(id, res, DateTimeOffset.Now.AddSeconds(30));
             return res;
         }
     }

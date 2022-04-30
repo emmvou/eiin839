@@ -9,10 +9,10 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace RoutingWithBikes
 {
@@ -77,6 +77,8 @@ namespace RoutingWithBikes
             //on prend dans l'ordre jusqu'à la première qui a du stock de vélo
             Station checkPoint1 = await getClosestStationWithBikes(stations, start);
             Station checkPoint2 = await getClosestStationWithStands(stations, end);
+            Console.WriteLine("start station: "+checkPoint1);
+            Console.WriteLine("end station:   " + checkPoint2);
 
             //on appelle l'API à partir des arguments
             var stb = await CallOpenRouteService(start, checkPoint1.position2, "foot-walking");
@@ -154,11 +156,12 @@ namespace RoutingWithBikes
             T s;
             try
             {
-                s = JsonSerializer.Deserialize<T>(JsonSerializer.Deserialize<string>(response));
+                s = JsonConvert.DeserializeObject<T>(JsonConvert.DeserializeObject<string>(response));
+                //s = JsonSerializer.Deserialize<T>(JsonSerializer.Deserialize<string>(response));
             }
             catch (Exception ex)
             {
-                throw new Exception("couldn't deserialize");
+                throw new Exception("couldn't deserialize", ex);
             }
 
             return s;
@@ -178,15 +181,14 @@ namespace RoutingWithBikes
 		[DataMember] public bool banking { get; set; }
 		[DataMember] public bool bonus { get; set; }
 		[DataMember] public string status { get; set; }
-		[DataMember] public DateTime lastUpdate { get; set; }
 		[DataMember] public bool connected { get; set; }
 		[DataMember] public bool overflow { get; set; }
 		[DataMember] public Stands totalStands { get; set; }
 		[DataMember] public Stands mainStands { get; set; }
 
-		[JsonConstructor]
+		[System.Text.Json.Serialization.JsonConstructor]
 		public Station(int number, string contractName, string name, string address, Dictionary<string, double> position,
-			bool banking, bool bonus, string status, DateTime lastUpdate, bool connected,
+			bool banking, bool bonus, string status, bool connected,
 			bool overflow, Stands totalStands, Stands mainStands)
 		{
 			this.number = number;
@@ -198,7 +200,6 @@ namespace RoutingWithBikes
 			this.banking = banking;
 			this.bonus = bonus;
 			this.status = status;
-			this.lastUpdate = lastUpdate;
 			this.connected = connected;
 			this.overflow = overflow;
 			this.totalStands = totalStands;
@@ -214,7 +215,7 @@ namespace RoutingWithBikes
 
         public object Clone()
         {
-            return new Station(number, contractName, name, address, position, banking, bonus, status, lastUpdate,
+            return new Station(number, contractName, name, address, position, banking, bonus, status,
                 connected, overflow, totalStands, mainStands);
         }
     }
